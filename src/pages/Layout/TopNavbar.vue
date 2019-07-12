@@ -76,9 +76,24 @@
               </a>
             </li>
 
+            <md-list-item href="/login">
+              <i class="material-icons">perm_identity</i>
+              <p class="hidden-lg hidden-md">Войти</p>
+            </md-list-item>
+
+            <md-list-item href="/register">
+              <i class="material-icons">assignment</i>
+              <p class="hidden-lg hidden-md">Регистрация</p>
+            </md-list-item>
+
             <md-list-item href="#/user">
               <i class="material-icons">person</i>
               <p class="hidden-lg hidden-md">Profile</p>
+            </md-list-item>
+
+            <md-list-item href="/logout">
+              <i class="material-icons">exit_to_app</i>
+              <p class="hidden-lg hidden-md">Выйти</p>
             </md-list-item>
           </md-list>
         </div>
@@ -89,6 +104,11 @@
 
 <script>
 export default {
+  computed: {
+    logged() {
+
+    }
+  },
   data() {
     return {
       selectedEmployee: null,

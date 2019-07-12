@@ -3,6 +3,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import App from "./App";
+import store from'./store/index.js';
 
 // router setup
 import routes from "./routes/routes";
@@ -20,7 +21,8 @@ import Chartist from "chartist";
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes
-  linkExactActiveClass: "nav-item active"
+  linkExactActiveClass: "nav-item active",
+  mode: "history"
 });
 
 Vue.prototype.$Chartist = Chartist;
@@ -34,6 +36,7 @@ Vue.use(Notifications);
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
+  store,
   render: h => h(App),
   router,
   data: {

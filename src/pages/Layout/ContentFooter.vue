@@ -4,7 +4,7 @@
       <nav>
         <ul>
           <li>
-            <a href="https://www.creative-tim.com">Creative Tim</a>
+            <a href="https://www.creative-tim.com">OutBreak.kz</a>
           </li>
           <li>
             <a href="https://creative-tim.com/presentation">
