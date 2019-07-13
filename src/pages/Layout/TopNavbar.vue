@@ -76,22 +76,22 @@
               </a>
             </li>
 
-            <md-list-item href="/login">
+            <md-list-item href="/login" v-if="!loggedIn">
               <i class="material-icons">perm_identity</i>
               <p class="hidden-lg hidden-md">Войти</p>
             </md-list-item>
 
-            <md-list-item href="/register">
+            <md-list-item href="/register" v-if="!loggedIn">
               <i class="material-icons">assignment</i>
               <p class="hidden-lg hidden-md">Регистрация</p>
             </md-list-item>
 
-            <md-list-item href="#/user">
+            <md-list-item href="#/user" v-if="loggedIn">
               <i class="material-icons">person</i>
               <p class="hidden-lg hidden-md">Profile</p>
             </md-list-item>
 
-            <md-list-item href="/logout">
+            <md-list-item href="/logout" v-if="loggedIn">
               <i class="material-icons">exit_to_app</i>
               <p class="hidden-lg hidden-md">Выйти</p>
             </md-list-item>
@@ -105,8 +105,8 @@
 <script>
 export default {
   computed: {
-    logged() {
-
+    loggedIn() {
+      return this.$store.getters.loggedIn;
     }
   },
   data() {

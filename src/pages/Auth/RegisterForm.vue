@@ -12,6 +12,10 @@
 
                     <div class="md-layout-item md-small-size-100 md-size-100">
                         <md-field>
+                            <label for="password">Name</label>
+                            <md-input id="name" v-model="name" type="name"></md-input>
+                        </md-field>
+                        <md-field>
                             <label for="email">Email</label>
                             <md-input id="email" v-model="email" type="email"></md-input>
                         </md-field>
@@ -23,10 +27,7 @@
                         </md-field>
                     </div>
                     <div class="md-layout-item md-small-size-100 md-size-100">
-                        <md-field>
-                            <label for="password">Name</label>
-                            <md-input id="name" v-model="name" type="name"></md-input>
-                        </md-field>
+
                     </div>
                     <div class="md-layout-item md-size-100 text-right">
                         <md-button type="submit" class="md-primary md-block">регитрация</md-button>

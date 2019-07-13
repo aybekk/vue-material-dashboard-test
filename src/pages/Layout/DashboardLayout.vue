@@ -2,41 +2,8 @@
   <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
     <notifications></notifications>
 
-    <side-bar>
-      <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/dashboard">
-        <md-icon>dashboard</md-icon>
-        <p>Dashboard</p>
-      </sidebar-link>
-      <sidebar-link to="/user">
-        <md-icon>person</md-icon>
-        <p>User Profile</p>
-      </sidebar-link>
-      <sidebar-link to="/table">
-        <md-icon>content_paste</md-icon>
-        <p>Table list</p>
-      </sidebar-link>
-      <sidebar-link to="/typography">
-        <md-icon>library_books</md-icon>
-        <p>Typography</p>
-      </sidebar-link>
-      <sidebar-link to="/icons">
-        <md-icon>bubble_chart</md-icon>
-        <p>Icons</p>
-      </sidebar-link>
-      <sidebar-link to="/maps">
-        <md-icon>location_on</md-icon>
-        <p>Maps</p>
-      </sidebar-link>
-      <sidebar-link to="/notifications">
-        <md-icon>notifications</md-icon>
-        <p>Notifications</p>
-      </sidebar-link>
-      <sidebar-link to="/upgrade" class="active-pro">
-        <md-icon>unarchive</md-icon>
-        <p>Upgrade to PRO</p>
-      </sidebar-link>
-    </side-bar>
+    <SideBar v-if="loggedIn"/>
+    <SideBarAuth v-if="!loggedIn"/>
 
     <div class="main-panel">
       <top-navbar></top-navbar>
@@ -53,13 +20,23 @@ import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
 import MobileMenu from "@/pages/Layout/MobileMenu.vue";
+import SideBarAuth from "@/pages/Layout/SideBarAuth";
+import SideBar from "@/pages/Layout/SideBar";
 
 export default {
   components: {
     TopNavbar,
     DashboardContent,
     ContentFooter,
-    MobileMenu
-  }
+    MobileMenu,
+    SideBarAuth,
+    SideBar,
+  },
+
+  computed: {
+    loggedIn() {
+      return this.$store.getters.loggedIn;
+    }
+  },
 };
 </script>

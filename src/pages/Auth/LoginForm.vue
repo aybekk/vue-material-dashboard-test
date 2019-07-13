@@ -28,7 +28,7 @@
 
 
                     <div class="md-layout-item md-size-100 text-center" style="margin-top: 30px;">
-                        <p><a href="/register">Зарегистрироваться</a></p>
+                        <p><router-link to="/register">Зарегистрироваться</router-link></p>
                         <p><a href="/password-reset">Забыли пароль?</a></p>
                     </div>
                 </div>

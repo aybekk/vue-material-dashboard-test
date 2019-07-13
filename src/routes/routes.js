@@ -10,6 +10,7 @@ import Notifications from "@/pages/Notifications.vue";
 import UpgradeToPRO from "@/pages/UpgradeToPRO.vue";
 import Login from "../pages/Login";
 import Logout from "../pages/Logout";
+import Register from "../pages/Register";
 
 const routes = [
   {
@@ -25,7 +26,11 @@ const routes = [
       {
         path: "user",
         name: "User Profile",
-        component: UserProfile
+        component: UserProfile,
+        meta:{
+          requiresAuth: true,
+        }
+
       },
       {
         path: "table",
@@ -64,7 +69,10 @@ const routes = [
       {
         path: "login",
         name: "Войти",
-        component: Login
+        component: Login,
+        meta:{
+          requiresVisitor: true,
+        }
       },
       {
         path: "logout",
@@ -74,7 +82,10 @@ const routes = [
       {
         path: "register",
         name: "Регистрация",
-        component: Register
+        component: Register,
+        meta:{
+          requiresVisitor: true,
+        }
       },
     ]
   }

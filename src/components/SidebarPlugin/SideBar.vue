@@ -6,18 +6,13 @@
     :style="sidebarStyle"
   >
     <div class="logo">
-      <a href="#" class="simple-text logo-mini">
-        <div class="logo-img">
-          <img :src="imgLogo" alt="" />
-        </div>
-      </a>
 
       <a
         href="https://www.creative-tim.com/product/vue-material-dashboard"
         target="_blank"
-        class="simple-text logo-normal"
+        class="simple-text text-center"
       >
-        {{ title }}
+        ЦИФРОВАЯ БИБЛИОТЕКА <br> AKNURPRESS
       </a>
     </div>
     <div class="sidebar-wrapper">
@@ -45,17 +40,9 @@ export default {
     SidebarLink
   },
   props: {
-    title: {
-      type: String,
-      default: "Vue MD"
-    },
     backgroundImage: {
       type: String,
       default: require("@/assets/img/sidebar-2.jpg")
-    },
-    imgLogo: {
-      type: String,
-      default: require("@/assets/img/vue-logo.png")
     },
     activeColor: {
       type: String,

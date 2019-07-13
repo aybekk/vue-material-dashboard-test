@@ -69,7 +69,7 @@ export default  new Vuex.Store({
 
 
         destroyToken(context) {
-            if(context.getters.loggedIn()){
+            if(context.getters.loggedIn){
                 localStorage.removeItem('access_token');
                 context.commit('removeToken');
             }
