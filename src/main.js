@@ -36,22 +36,30 @@ Vue.use(Notifications);
 /* eslint-disable no-new */
 router.beforeEach((to,from,next)=>{
   if(to.matched.some(record =>record.meta.requiresAuth)) {
-    if(!store.getters.loggedIn){
+    if(!store.getters['auth/loggedIn']){
       next({path: "/login"});
     }
-    else {
-      next();
-    }
   } else if(to.matched.some(record =>record.meta.requiresVisitor)) {
-    if (store.getters.loggedIn) {
-      next({path: "/dashboard"});
-    } else {
-      next();
+    if (store.getters['auth/loggedIn']) {
+      next({path: "/books"});
+    }
+  } else if(to.matched.some(record =>record.meta.requiresAdmin)) {
+    if(!store.getters['auth/loggedIn']){
+      next({path: "/login"});
+    }
+    if (store.getters['auth/userGroup'] !== 'admin') {
+      next({path: "/books"});
     }
   }
-  else  {
-    next();
+
+  if(store.getters['auth/loggedIn'] && store.getters['auth/userInfo'] === null) {
+    store.dispatch('auth/getUserInfo')
+        .catch(error =>{
+          next({path: "/login"});
+        });
   }
+
+  next();
 
 })
 new Vue({

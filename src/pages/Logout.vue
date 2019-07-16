@@ -4,7 +4,7 @@
 <script>
   export default {
     created(){
-      this.$store.dispatch('destroyToken')
+      this.$store.dispatch('auth/destroyToken')
               .then(response =>{
                 this.$router.push("/login")
               })

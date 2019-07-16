@@ -53,11 +53,11 @@
         },
         methods: {
             login() {
-                this.$store.dispatch('retrieveToken', {
+                this.$store.dispatch('auth/retrieveToken', {
                     email: this.email,
                     password: this.password,
                 }).then(response => {
-                    this.$router.push('/dashboard')
+                    this.$router.push('/books');
                 });
             }
         }
