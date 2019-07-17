@@ -29,7 +29,7 @@
           <div class="md-layout-item md-small-size-100 md-size-50">
             <md-field>
               <label>First Name</label>
-              <md-input v-model="firstname" type="text"></md-input>
+              <md-input v-model="name" type="text"></md-input>
             </md-field>
           </div>
           <div class="md-layout-item md-small-size-100 md-size-50">
@@ -91,7 +91,7 @@ export default {
       disabled: null,
       emailadress: null,
       lastname: null,
-      firstname: null,
+      name: null,
       address: null,
       city: null,
       country: null,

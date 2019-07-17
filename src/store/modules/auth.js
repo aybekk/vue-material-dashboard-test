@@ -5,7 +5,7 @@ axios.defaults.baseURL = env.backendApiUrl;
 
 const state = {
     token: localStorage.getItem('access_token') || null,
-    group: localStorage.getItem('group') === null ? null : localStorage.getItem('group'),
+    group: localStorage.getItem('group') || null,
     user: null,
 };
 
@@ -51,7 +51,9 @@ const actions = {
                 email: credentials.email,
                 password: credentials.password,
             }, {
-                Accept: 'application/json',
+                headers: {
+                    Accept: 'application/json',
+                }
             }).then(response => {
                 const token = response.data.access_token;
                 const data = response.data;
@@ -76,7 +78,9 @@ const actions = {
                 name: credentials.name,
                 second_name: credentials.second_name,
             }, {
-                Accept: 'application/json',
+                headers: {
+                    Accept: 'application/json',
+                }
             }).then(response => {
                 const token = response.data.access_token;
                 const data = response.data;

@@ -6,7 +6,7 @@
       <md-icon>library_books</md-icon>
       <p>Книги</p>
     </sidebar-link>
-    <sidebar-link to="/user">
+    <sidebar-link to="/profile">
       <md-icon>person</md-icon>
       <p>Профиль</p>
     </sidebar-link>
