@@ -4,7 +4,7 @@
       <md-table-row slot="md-table-row" slot-scope="{ item }">
         <md-table-cell>{{ item.name }}</md-table-cell>
         <md-table-cell>
-          <md-button class="md-simple md-success">
+          <md-button v-on:click="goToAddIp(item.id)" class="md-simple md-success">
             <i class="md-icon md-icon-font">card_membership</i> ПРОСМОТР IP АДРЕСОВ
           </md-button>
         </md-table-cell>
@@ -38,6 +38,11 @@
 
 <script>
   export default {
+    methods: {
+      goToAddIp(id) {
+        this.$router.push('/admin/universities/' + id + '/ip-addresses');
+      }
+    },
     name: "table",
     props: {
       tableHeaderColor: {

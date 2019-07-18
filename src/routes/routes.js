@@ -10,6 +10,8 @@ import Register from "../pages/Register";
 import AdminMenu from '../pages/Admin/AdminMenu';
 import UniversityAdd from '../pages/Admin/University/Add';
 import UniversityIndex from '../pages/Admin/University/Index';
+import UniversityIp from '../pages/Admin/University/Ip';
+import UniversityAddIp from '../pages/Admin/University/AddIp';
 
 
 const routes = [
@@ -49,7 +51,9 @@ const routes = [
         meta:{
           requiresAdmin: true,
         }
-      },{
+      },
+
+      {
         path: "admin/universities",
         name: "Список учебных заведении",
         component: UniversityIndex,
@@ -57,6 +61,23 @@ const routes = [
           requiresAdmin: true,
         }
       },
+      {
+        path: "admin/universities/:id/ip-addresses",
+        name: "Добавление IP адреса",
+        component: UniversityIp,
+        meta:{
+          requiresAdmin: true,
+        }
+      },
+        {
+        path: "admin/universities/:id/ip-addresses/add",
+        name: "Список IP адресов учебного заведения",
+        component: UniversityAddIp,
+        meta:{
+          requiresAdmin: true,
+        }
+      },
+
 
 
 
