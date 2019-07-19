@@ -2,11 +2,11 @@
   <div class="content">
     <div class="md-layout">
       <div class="md-layout-item md-medium-size-75 md-small-size-80 md-xsmall-size-100 md-size-50">
-        <form @submit.prevent="saveUniversity">
+        <form @submit.prevent="saveUniversityIp">
           <md-card>
 
             <md-card-header data-background-color="purple">
-              <h4 class="title">Добавление IP адреса/ов - KAZNPU</h4>
+              <h4 class="title">Добавление IP адреса/ов - {{ University.name }}</h4>
             </md-card-header>
 
             <md-card-content>
@@ -14,11 +14,11 @@
                 <div class="md-layout-item md-size-100">
                   <md-field>
                     <label>Ip адрес</label>
-                    <md-input required v-model="name" type="text"></md-input>
+                    <md-input required v-model="ip_start" type="text"></md-input>
                   </md-field>
                   <md-field>
-                    <label>Ip адрес</label>
-                    <md-input required v-model="name" type="text"></md-input>
+                    <label>Ip адрес- конец диапазона(не обязательно)</label>
+                    <md-input v-model="ip_end" type="text"></md-input>
                   </md-field>
                 </div>
                 <div class="md-layout-item md-size-100">
@@ -38,15 +38,28 @@
 export default {
   data() {
     return {
-      name: ''
+      ip_start: '',
+      ip_end: '',
     };
   },
+  mounted() {
+    this.$store.dispatch("university/getUniversity", {
+      id: this.$route.params.id,
+    });
+  },
+  computed: {
+    University() {
+      return this.$store.getters['university/University']
+    }
+  },
   methods: {
-    saveUniversity() {
-      this.$store.dispatch('university/store', {
-        name: this.name,
+    saveUniversityIp() {
+      this.$store.dispatch('university/storeIp', {
+        id: this.$route.params.id,
+        ip_start: this.ip_start,
+        ip_end: this.ip_end,
       }).then(response => {
-        this.$router.push('/admin/universities');
+        this.$router.push('/admin/universities/' +this.$route.params.id+ '/ip-addresses');
       }).catch(error => {
         this.errorNotify();
       });

@@ -11,7 +11,7 @@
               <md-button v-on:click="goToAddPage" class="md-raised md-success">
                 <i class="md-icon md-icon-font text-info md-theme-default">add</i> Добавить новое учебное заведение
               </md-button>
-            <Table table-header-color="green"></Table>
+            <UniversityTable table-header-color="green"></UniversityTable>
           </md-card-content>
         </md-card>
       </div>
@@ -22,11 +22,11 @@
 </template>
 
 <script>
-  import Table from "./Partials/Table";
+  import UniversityTable from "./Partials/UniversityTable";
 
   export default {
     components: {
-      Table
+      UniversityTable
     },
     methods: {
       goToAddPage() {

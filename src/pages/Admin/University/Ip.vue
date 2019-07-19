@@ -4,18 +4,18 @@
       <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
         <md-card>
           <md-card-header data-background-color="purple">
-            <h4 class="title">IP адреса - KAZNPU</h4>
+            <h4 class="title">IP адреса - {{ University.name }}</h4>
             <p class="category">Список разрешенных IP адресов для регистрации в портале </p>
           </md-card-header>
           <md-card-content>
-            <md-button v-on:click="goToIp" class="md-raised md-success">
+            <md-button v-on:click="goToAddIp" class="md-raised md-success">
               <i class="md-icon md-icon-font text-info md-theme-default">add</i> ДОБАВИТЬ IP АДРЕС
             </md-button>
-            <md-table v-model="IpAddresses">
+            <md-table v-model="Ips">
               <md-table-row slot="md-table-row" slot-scope="{ item }">
                 <md-table-cell>
-                  98.192.35.225
-                  <md-button class="md-simple md-danger md-sm" style="margin: 0;">
+                 {{ longToIp(item.ip_start) }}<span v-if="item.ip_start !== item.ip_end">&nbsp;— {{ longToIp(item.ip_end) }}</span>
+                  <md-button v-on:click="destroyIp(item.id)" class="md-simple md-danger md-sm" style="margin: 0;">
                     <i class="md-icon md-icon-font">library_books</i> Удалить
                   </md-button>
                 </md-table-cell>
@@ -32,50 +32,59 @@
 <script>
   export default {
     methods: {
-      goToIp(id) {
-        this.$router.push('/admin/universities/' + id + '/ip-addresses/add');
+      goToAddIp(id) {
+        this.$router.push('/admin/universities/' + this.$route.params.id + '/ip-addresses/add');
+      },
+
+      destroyIp(id) {
+        if(confirm('Вы точно хотите удалить IP адрес?')) {
+          this.$store.dispatch('university/destroyIp', {
+            id: id,
+            university_id: this.$route.params.id,
+          }).then(response => {
+            this.$store.dispatch("university/getIps", {
+              id: this.$route.params.id,
+            });
+          }).catch(error => {
+            this.errorNotify();
+          });
+        }
+      },
+      errorNotify(verticalAlign, horizontalAlign) {
+        this.$notify({
+          message:
+                  "Ошибка удаления!",
+          icon: "add_alert",
+          horizontalAlign: 'center',
+          verticalAlign: 'top',
+          type: 'danger'
+        });
+      },
+
+      longToIp(ip) {
+        let part1 = ip & 255;
+        let part2 = ((ip >> 8) & 255);
+        let part3 = ((ip >> 16) & 255);
+        let part4 = ((ip >> 24) & 255);
+
+        return part4 + "." + part3 + "." + part2 + "." + part1;
       }
     },
-    data() {
-      return {
-        IpAddresses: [
-          {
-            name: "Dakota Rice",
-            salary: "$36,738",
-            country: "Niger",
-            city: "Oud-Turnhout"
-          },
-          {
-            name: "Minerva Hooper",
-            salary: "$23,738",
-            country: "Curaçao",
-            city: "Sinaai-Waas"
-          },
-          {
-            name: "Sage Rodriguez",
-            salary: "$56,142",
-            country: "Netherlands",
-            city: "Overland Park"
-          },
-          {
-            name: "Philip Chaney",
-            salary: "$38,735",
-            country: "Korea, South",
-            city: "Gloucester"
-          },
-          {
-            name: "Doris Greene",
-            salary: "$63,542",
-            country: "Malawi",
-            city: "Feldkirchen in Kārnten"
-          },
-          {
-            name: "Mason Porter",
-            salary: "$78,615",
-            country: "Chile",
-            city: "Gloucester"
-          }
-        ]
+    mounted() {
+      this.$store.dispatch("university/getUniversity", {
+        id: this.$route.params.id,
+      });
+      this.$store.dispatch("university/getIps", {
+        id: this.$route.params.id,
+      });
+    },
+
+    computed: {
+      University() {
+        return this.$store.getters['university/University']
+      },
+      Ips() {
+        return this.$store.getters['university/Ips']
       }
     }
   }
