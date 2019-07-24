@@ -8,11 +8,14 @@ import Logout from "../pages/Logout";
 import Register from "../pages/Register";
 
 import AdminMenu from '../pages/Admin/AdminMenu';
+
 import UniversityAdd from '../pages/Admin/University/Add';
 import UniversityIndex from '../pages/Admin/University/Index';
 import UniversityIp from '../pages/Admin/University/Ip';
 import UniversityAddIp from '../pages/Admin/University/AddIp';
 
+import SubjectIndex from '../pages/Admin/Subject/Index';
+import SubjectAdd from '../pages/Admin/Subject/Add';
 
 const routes = [
   {
@@ -52,7 +55,6 @@ const routes = [
           requiresAdmin: true,
         }
       },
-
       {
         path: "admin/universities",
         name: "Список учебных заведении",
@@ -73,6 +75,24 @@ const routes = [
         path: "admin/universities/:id/ip-addresses/add",
         name: "Список IP адресов учебного заведения",
         component: UniversityAddIp,
+        meta:{
+          requiresAdmin: true,
+        }
+      },
+
+
+      {
+        path: "admin/subjects",
+        name: "Список дисциплин",
+        component: SubjectIndex,
+        meta:{
+          requiresAdmin: true,
+        }
+      },
+      {
+        path: "admin/subjects/add",
+        name: "Добавление дисциплины",
+        component: SubjectAdd,
         meta:{
           requiresAdmin: true,
         }

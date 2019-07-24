@@ -24,8 +24,33 @@
           </template>
         </stats-card>
       </div>
+
       <div
         class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
+      >
+        <stats-card data-background-color="red">
+          <template slot="header">
+            <md-icon>work</md-icon>
+          </template>
+
+          <template slot="content">
+            <p class="category">Дисциплины
+            </p>
+            <h3 class="title">75</h3>
+          </template>
+
+          <template slot="footer">
+            <div class="stats">
+              <router-link to="/admin/subjects">
+                <md-icon>arrow_forward</md-icon>
+                Перейти
+              </router-link>
+            </div>
+          </template>
+        </stats-card>
+      </div>
+      <div
+              class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
       >
         <stats-card data-background-color="orange">
           <template slot="header">
@@ -45,27 +70,6 @@
                 <md-icon>arrow_forward</md-icon>
                 Перейти
               </router-link>
-            </div>
-          </template>
-        </stats-card>
-      </div>
-      <div
-        class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-33"
-      >
-        <stats-card data-background-color="red">
-          <template slot="header">
-            <md-icon>info_outline</md-icon>
-          </template>
-
-          <template slot="content">
-            <p class="category">Fixed Issues</p>
-            <h3 class="title">75</h3>
-          </template>
-
-          <template slot="footer">
-            <div class="stats">
-              <md-icon>local_offer</md-icon>
-              Tracked from Github
             </div>
           </template>
         </stats-card>
