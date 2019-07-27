@@ -18,6 +18,14 @@ const mutations = {
     },
     storeIps(state, data) {
         state.ips = data;
+    },
+    activateUniversity(state, id) {
+        let index = state.universities.findIndex(item => item.id === id);
+        state.universities[index].activated = 1;
+    },
+    deactivateUniversity(state, id) {
+        let index = state.universities.findIndex(item => item.id === id);
+        state.universities[index].activated = 0;
     }
 };
 
@@ -36,7 +44,7 @@ const getters = {
 const actions = {
     store(context, credentials) {
         return new Promise((resolve, reject) => {
-            axios.post('universities', {
+            axios.post('universities'/ +credentials.id, {
                 name: credentials.name,
             }, {
                 headers: {
@@ -50,6 +58,25 @@ const actions = {
             });
         });
     },
+    update(context, credentials) {
+        return new Promise((resolve, reject) => {
+            axios.put('universities/' + credentials.id, {
+                name: credentials.name,
+
+
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+
 
     getList(context) {
         return new Promise((resolve, reject) => {
@@ -129,6 +156,41 @@ const actions = {
             });
         });
     },
+    activate(context,credentials){
+        return new Promise((resolve, reject) => {
+            axios.put('universities/' +  credentials.id + '/activate', {
+
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                context.commit('activateUniversity', credentials.id);
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+    deactivate(context,credentials){
+        return new Promise((resolve, reject) => {
+            axios.put('universities/' +  credentials.id + '/deactivate', {
+
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                context.commit('deactivateUniversity', credentials.id);
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    }
+
 
 
 };

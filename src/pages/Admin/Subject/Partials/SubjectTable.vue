@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="Subjects.hums">
+    <div v-if="Subjects.hums.length !== 0">
     <h3>Гуманитарно-технические</h3>
     <md-table v-model="Subjects.hums">
       <md-table-row slot="md-table-row" slot-scope="{ item }">
@@ -23,7 +23,7 @@
       </md-table-row>
     </md-table>
     </div>
-    <div>
+    <div v-if="Subjects.medicals.length !== 0">
     <h3>Медицинские</h3>
     <md-table v-model="Subjects.medicals">
       <md-table-row slot="md-table-row" slot-scope="{ item }">
@@ -46,7 +46,7 @@
       </md-table-row>
     </md-table>
     </div>
-    <div v-if="!null" "Subjects.others">
+    <div v-if="Subjects.others.length !== 0">
     <h3>Другие</h3>
     <md-table v-model="Subjects.others">
       <md-table-row slot="md-table-row" slot-scope="{ item }">

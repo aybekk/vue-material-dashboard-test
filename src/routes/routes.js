@@ -10,6 +10,7 @@ import Register from "../pages/Register";
 import AdminMenu from '../pages/Admin/AdminMenu';
 
 import UniversityAdd from '../pages/Admin/University/Add';
+import UniversityEdit from '../pages/Admin/University/Edit';
 import UniversityIndex from '../pages/Admin/University/Index';
 import UniversityIp from '../pages/Admin/University/Ip';
 import UniversityAddIp from '../pages/Admin/University/AddIp';
@@ -55,6 +56,15 @@ const routes = [
           requiresAdmin: true,
         }
       },
+      {
+        path: "admin/universities/:id/edit",
+        name: "Редактировать учебное заведение",
+        component: UniversityEdit,
+        meta:{
+          requiresAdmin: true,
+        }
+      },
+
       {
         path: "admin/universities",
         name: "Список учебных заведении",
