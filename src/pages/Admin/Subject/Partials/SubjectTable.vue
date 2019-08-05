@@ -13,10 +13,10 @@
         </md-table-cell>
         <md-table-cell>
 
-          <md-button class="md-simple md-primary md-sm university-action-btns">
+          <md-button v-on:click="toEdit(item.id)"class="md-simple md-primary md-sm university-action-btns" title="Редактировать">
             <i class="md-icon md-icon-font text-info">edit</i>
           </md-button>
-          <md-button class="md-simple md-danger md-sm university-action-btns">
+          <md-button v-on:click="destroyDiscipline(item.id)" class="md-simple md-danger md-sm university-action-btns"title="Удалить">
             <i class="md-icon md-icon-font text-info">close</i>
           </md-button>
         </md-table-cell>
@@ -36,10 +36,10 @@
         </md-table-cell>
         <md-table-cell>
 
-          <md-button class="md-simple md-primary md-sm university-action-btns">
+          <md-button v-on:click="toEdit(item.id)" class="md-simple md-primary md-sm university-action-btns" title="Редактировать">
             <i class="md-icon md-icon-font text-info">edit</i>
           </md-button>
-          <md-button class="md-simple md-danger md-sm university-action-btns">
+          <md-button v-on:click="destroyDiscipline(item.id)" class="md-simple md-danger md-sm university-action-btns"title="Удалить">
             <i class="md-icon md-icon-font text-info">close</i>
           </md-button>
         </md-table-cell>
@@ -59,10 +59,10 @@
         </md-table-cell>
         <md-table-cell>
 
-          <md-button class="md-simple md-primary md-sm university-action-btns">
+          <md-button v-on:click="toEdit(item.id)" class="md-simple md-primary md-sm university-action-btns" title="Редактировать">
             <i class="md-icon md-icon-font text-info">edit</i>
           </md-button>
-          <md-button class="md-simple md-danger md-sm university-action-btns">
+          <md-button v-on:click="destroyDiscipline(item.id)" class="md-simple md-danger md-sm university-action-btns" title="Удалить">
             <i class="md-icon md-icon-font text-info">close</i>
           </md-button>
         </md-table-cell>
@@ -84,6 +84,24 @@
 
   export default {
     methods: {
+      destroyDiscipline(id) {
+        if(confirm('Вы точно хотите удалить Дисциплину ?'))
+          this.$store.dispatch('subject/destroyDiscipline', {
+            id:id,
+          }).then(response => {
+            this.$store.dispatch("subject/getList", {
+              id: this.$route.params.id,
+            });
+        }).catch(error => {
+          this.errorNotify();
+        });
+      },
+      toEdit(id){
+        this.$router.push('/admin/subjects/' + id +'/edit');
+      },
+      goToBooks(id){
+        this.$router.push('/admin/subjects/' + id + '/books');
+      },
 
 
     },

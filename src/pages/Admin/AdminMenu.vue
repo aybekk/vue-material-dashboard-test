@@ -79,18 +79,19 @@
       >
         <stats-card data-background-color="blue">
           <template slot="header">
-            <i class="fab fa-twitter"></i>
+            <md-icon>people</md-icon>
           </template>
 
           <template slot="content">
-            <p class="category">Folowers</p>
+            <p class="category">Пользователи</p>
             <h3 class="title">+245</h3>
           </template>
 
           <template slot="footer">
             <div class="stats">
-              <md-icon>update</md-icon>
-              Just Updated
+              <router-link to="/admin/users">
+              <md-icon>arrow_forward</md-icon>
+              Перейти</router-link>
             </div>
           </template>
         </stats-card>

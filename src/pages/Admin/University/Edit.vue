@@ -6,7 +6,7 @@
           <md-card>
 
             <md-card-header data-background-color="purple">
-              <h4 class="title">Редактирование учебного заведения - {{ University.name }}</h4>
+              <h4 class="title">Редактирование учебного заведения </h4>
             </md-card-header>
 
             <md-card-content>
@@ -14,7 +14,7 @@
                 <div class="md-layout-item md-size-100">
                   <md-field>
                     <label>Название учебного заведения</label>
-                    <md-input required v-model="name" type="text"></md-input>
+                    <md-input required v-model="name_val" type="text"></md-input>
                   </md-field>
                 </div>
                 <div class="md-layout-item md-size-100">
@@ -37,12 +37,25 @@
         name: '',
       };
     },
-
     computed: {
-      University() {
-        return this.$store.getters['university/University']
+      name_val: {
+        get() {
+          if (this.getUniversity) {
+            this.name = this.getUniversity.name;
+            return this.getUniversity.name;
+          }
+        },
+        set(value) {
+          this.name = value;
+        },
+
+      },
+      getUniversity() {
+        return this.$store.getters['university/University'];
       }
     },
+
+
 
     beforeMount() {
       this.$store.dispatch("university/getUniversity", {
@@ -65,6 +78,7 @@
       }
 
   };
+
 
 
 </script>

@@ -3,6 +3,8 @@ import Vuex from 'vuex';
 import auth from './modules/auth';
 import university from './modules/university';
 import subject from './modules/subject';
+import book from './modules/book';
+import user from './modules/user';
 
 Vue.use(Vuex);
 
@@ -11,5 +13,7 @@ export default  new Vuex.Store({
         auth,
         university,
         subject,
+        book,
+        user,
     },
 });

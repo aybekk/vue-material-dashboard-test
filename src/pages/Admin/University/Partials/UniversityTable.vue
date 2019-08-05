@@ -9,7 +9,7 @@
           </md-button>
         </md-table-cell>
         <md-table-cell>
-          <md-button  v-on:click="goToBooks(item.book)" class="md-simple md-info md-sm">
+          <md-button  v-on:click="goToBooks(item.id)" class="md-simple md-info md-sm">
             <i class="md-icon md-icon-font text-info">library_books</i> АКТИВИРОВАННЫЕ КНИГИ
           </md-button>
         </md-table-cell>
@@ -54,8 +54,8 @@
       goToAddIp(id) {
         this.$router.push('/admin/universities/' + id + '/ip-addresses');
       },
-      goToBooks(book){
-        this.$router.push('/admin/universities/' + book + '/active-books');
+      goToBooks(id){
+        this.$router.push('/admin/universities/' + id + '/books');
       },
       toEdit(id){
         this.$router.push('/admin/universities/' + id +'/edit');
@@ -89,9 +89,6 @@
     data() {
       return {
         selected: [],
-        university_active: {
-          2: true,
-        }
       };
     },
     beforeMount() {

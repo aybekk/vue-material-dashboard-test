@@ -7,6 +7,8 @@ const state = {
     universities: null,
     university: null,
     ips:null,
+    books:null,
+    books_array:null
 };
 
 const mutations = {
@@ -18,6 +20,12 @@ const mutations = {
     },
     storeIps(state, data) {
         state.ips = data;
+    },
+    storeBooks(state, data) {
+        state.books = data;
+    },
+    storeBooksArray(state, data) {
+        state.books_array = data;
     },
     activateUniversity(state, id) {
         let index = state.universities.findIndex(item => item.id === id);
@@ -38,13 +46,19 @@ const getters = {
     },
     Ips(state) {
         return state.ips;
+    },
+    Books(state) {
+        return state.books;
+    },
+    BooksArray(state) {
+        return state.books_array;
     }
 };
 
 const actions = {
     store(context, credentials) {
         return new Promise((resolve, reject) => {
-            axios.post('universities'/ +credentials.id, {
+            axios.post('universities', {
                 name: credentials.name,
             }, {
                 headers: {
@@ -127,6 +141,22 @@ const actions = {
             });
         });
     },
+    storeBooks(context, credentials) {
+        return new Promise((resolve, reject) => {
+            axios.post('universities/' + credentials.id + '/books', {
+                books: credentials.books
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
     getIps(context, credentials) {
         return new Promise((resolve, reject) => {
             axios.get('universities/' + credentials.id + '/ip-addresses', {
@@ -136,6 +166,36 @@ const actions = {
                 }
             }).then(response => {
                 context.commit('storeIps', response.data);
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+    getBooks(context, credentials) {
+        return new Promise((resolve, reject) => {
+            axios.get('universities/' + credentials.id + '/books', {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                context.commit('storeBooks', response.data);
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+    getBooksArray(context, credentials) {
+        return new Promise((resolve, reject) => {
+            axios.get('universities/' + credentials.id + '/books/array', {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                context.commit('storeBooksArray', response.data);
                 resolve(response);
             }).catch(error => {
                 reject(error);
