@@ -8,6 +8,10 @@ import Logout from "../pages/Logout";
 import Register from "../pages/Register";
 
 import AdminMenu from '../pages/Admin/AdminMenu';
+import BooksIndex from '../pages/Books/Index';
+import BookmarksIndex from '../pages/Bookmarks/Index';
+import ArticlesIndex from '../pages/Articles/Index';
+import StoryIndex from '../pages/Story/Index';
 
 import UniversityAdd from '../pages/Admin/University/Add';
 import UniversityEdit from '../pages/Admin/University/Edit';
@@ -44,9 +48,33 @@ const routes = [
     redirect: "/books",
     children: [
       {
-        path: "books",
+        path: "books/:page",
         name: "Books",
-        component: Dashboard,
+        component: BooksIndex,
+        meta:{
+          requiresAuth: true,
+        }
+      },
+      {
+        path: "bookmarks",
+        name: "Bookmarks",
+        component: BookmarksIndex,
+        meta:{
+          requiresAuth: true,
+        }
+      },
+      {
+        path: "articles",
+        name: "Articles",
+        component: ArticlesIndex,
+        meta:{
+          requiresAuth: true,
+        }
+      },
+      {
+        path: "story",
+        name: "Story",
+        component: StoryIndex,
         meta:{
           requiresAuth: true,
         }

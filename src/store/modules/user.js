@@ -36,6 +36,46 @@ const getters = {
 };
 
 const actions = {
+    store(context, credentials) {
+        return new Promise((resolve, reject) => {
+            axios.post('users/store-admin', {
+                name: credentials.name,
+                second_name: credentials.second_name,
+                email:credentials.email,
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+
+
+    storeUser(context, credentials) {
+        return new Promise((resolve, reject) => {
+            axios.post('users', {
+                name: credentials.name,
+                second_name: credentials.second_name,
+                email:credentials.email,
+                group:credentials.group,
+                university_id:credentials.university_id,
+            }, {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
     getUser(context, credentials) {
         return new Promise((resolve, reject) => {
             axios.get('users/' + credentials.id, {

@@ -8,12 +8,16 @@ const state = {
     university: null,
     ips:null,
     books:null,
-    books_array:null
+    books_array:null,
+    active_universities:null,
 };
 
 const mutations = {
     storeUniversities(state, data) {
         state.universities = data;
+    },
+    storeActiveUniversities(state, data) {
+        state.active_universities = data;
     },
     storeUniversity(state, data) {
         state.university = data;
@@ -40,6 +44,9 @@ const mutations = {
 const getters = {
     Universities(state) {
         return state.universities;
+    },
+    ActiveUniversities(state) {
+        return state.active_universities;
     },
     University(state) {
         return state.university;
@@ -84,6 +91,21 @@ const actions = {
                     Authorization: 'Bearer ' + context.rootState.auth.token,
                 }
             }).then(response => {
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+    getActiveUniversities(context){
+        return new Promise((resolve, reject) => {
+            axios.get('universities/active', {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                context.commit('storeActiveUniversities', response.data);
                 resolve(response);
             }).catch(error => {
                 reject(error);

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <md-table v-model="Users" :table-header-color="tableHeaderColor">
+        <md-table v-model="users"  :table-header-color="tableHeaderColor">
             <md-table-row slot="md-table-row" slot-scope="{ item }">
                 <md-table-cell  md-label="ID">{{ item.id}}</md-table-cell>
                 <md-table-cell  md-label="Имя">{{ item.name }}</md-table-cell>
@@ -8,7 +8,7 @@
                 <md-table-cell  md-label="Email">{{ item.email }}</md-table-cell>
                 <md-table-cell  md-label="Группа">{{ item.group }}</md-table-cell>
                 <md-table-cell  md-label="Дата регистрации">{{ item.created_at }}</md-table-cell>
-                <md-table-cell  md-label="Университет">asdf asd </md-table-cell>
+                <md-table-cell  md-label="Университет">{{ item.university_name }} </md-table-cell>
                 <md-table-cell md-label="Действия" >
 
                     <md-button v-on:click="toEdit(item.id)" class="md-simple md-primary md-sm university-action-btns" title="Редактировать">
@@ -61,19 +61,11 @@
 <script>
 
     export default {
-
-
-        data(){
+        data() {
             return {
-                name:'',
-                email:'',
-                id:'',
-                group:'',
-                created_at:'',
-                univer_name:'',
-                second_name:'',
-
-            };
+                users: [],
+                universities: [],
+            }
         },
         methods: {
             destroyUser(id) {
@@ -90,18 +82,29 @@
                 this.$router.push('/admin/users/' + id +'/edit');
             },
 
-
-        },
-        computed: {
-            Users() {
-                return this.$store.getters['user/Users'];
+            setUniversityNames() {
+                const univers_array = this.universities;
+                this.users.forEach(function (item) {
+                    item.university_name = univers_array.find(university => item.university_id === university.id).name;
+                });
             }
         },
         beforeMount() {
-            this.$store.dispatch("user/getUsers");
-        }
+            this.$store.dispatch("university/getList").then(response => {
+                this.universities = this.$store.getters["university/Universities"];
+                if(this.users.length !== 0) {
+                    this.setUniversityNames();
+                }
+            });
 
+            this.$store.dispatch("user/getUsers").then(response => {
+                this.users = this.$store.getters["user/Users"];
+                if(this.universities.length !== 0) {
+                    this.setUniversityNames();
+                }
+            });
 
+        },
     }
 
 
