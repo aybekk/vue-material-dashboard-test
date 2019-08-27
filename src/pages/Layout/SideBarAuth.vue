@@ -13,7 +13,11 @@
 </template>
 
 <script>
-  export default {
+  import MobileMenu from "@/pages/Layout/MobileMenu.vue";
 
+  export default {
+    components: {
+      MobileMenu
+    },
   };
 </script>

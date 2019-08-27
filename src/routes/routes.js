@@ -1,6 +1,6 @@
 import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
+import PlainLayout from "@/pages/Layout/DashboardLayout.vue";
 
-import Dashboard from "@/pages/Dashboard.vue";
 import UserProfile from "@/pages/User/UserProfile.vue";
 
 import Login from "../pages/Login";
@@ -9,6 +9,7 @@ import Register from "../pages/Register";
 
 import AdminMenu from '../pages/Admin/AdminMenu';
 import BooksIndex from '../pages/Books/Index';
+import Reader from '../reader/Reader';
 import BookmarksIndex from '../pages/Bookmarks/Index';
 import ArticlesIndex from '../pages/Articles/Index';
 import StoryIndex from '../pages/Story/Index';
@@ -45,7 +46,7 @@ const routes = [
   {
     path: "/",
     component: DashboardLayout,
-    redirect: "/books",
+    redirect: "/books/1",
     children: [
       {
         path: "books/:page",
@@ -297,6 +298,14 @@ const routes = [
         }
       },
     ]
+  },
+  {
+    path: "/reader/:id",
+    component: Reader,
+    meta:{
+      requiresAuth: true,
+    },
+    name: "Reader",
   }
 ];
 

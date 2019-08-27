@@ -11,7 +11,10 @@
   "dependencies": {
     "axios": "^0.19.0",
     "chartist": "0.11.2",
+    "filestack-js": "^3.7.0",
     "google-maps": "3.3.0",
+    "intersection-observer": "^0.7.0",
+    "pdfjs-dist": "^2.0.943",
     "vue": "2.6.10",
     "vue-axios": "^2.1.4",
     "vue-clickaway": "2.2.2",

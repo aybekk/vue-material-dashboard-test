@@ -56,8 +56,8 @@
                             </div>
                             <md-button target="_blank" href="/reader/web/2125" class="md-round md-success">Открыть книгу
                             </md-button>
-                            <md-button v-if="false" v-on:click="bookmark" class="md-round md-info">В закладки</md-button>
-                            <md-button  v-on:click="bookmarkRemove" class="md-round">Убрать из
+                            <md-button v-if="false" class="md-round md-info">В закладки</md-button>
+                            <md-button class="md-round">Убрать из
                                 закладок
                             </md-button>
                         </div>

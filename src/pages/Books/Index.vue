@@ -30,15 +30,14 @@
                                     <label class="control-label">Автор</label>
                                     <div class="md-layout-item md-size-50 mx-auto md-xsmall-size-100">
                                         <div class="dropup">
-                                            <button type="button"
-                                                    class="md-button md-button md-success md-round md-block dropdown-toggle md-theme-default"
-                                                    data-toggle="dropdown">
+                                            <md-button class="md-raised md-primary"
+                                                       data-toggle="dropdown" role="button">
                                                 <div class="md-ripple">
                                                     <div class="md-button-content">
-                                                        Dropup
+
                                                     </div>
                                                 </div>
-                                            </button>
+                                            </md-button>
                                             <ul class="dropdown-menu dropdown-menu-right">
                                                 <li><a href="#">Mike John responded to your email</a></li>
                                                 <li><a href="#">You have 5 new tasks</a></li>
@@ -55,7 +54,8 @@
                                 <div class="form-group is-empty">
                                     <label class="control-label">Дисциплина</label>
 
-                                    <div class="dropdown bootstrap-select bs3"><select class="selectpicker"
+                                    <div class="dropdown bootstrap-select bs3">
+                                        <select class="selectpicker"
                                                                                        name="subject"
                                                                                        data-style="btn-primary"
                                                                                        data-live-search="true"
@@ -253,23 +253,23 @@
                 <div class="md-card md-card-stats md-theme-default">
                     <div class="md-card-content">
                         <div class="poster-container ">
-                            <img :src="item.poster ? 'http://aybek-test/' + item.poster : 'https://www.film.ru/images/empty/260x400.png'"
+                            <img :src="item.poster ? backendUrl + item.poster : 'https://www.film.ru/images/empty/260x400.png'"
                                  alt="Постер книги"
                                  class="poster">
                         </div>
                         <br>
                         <div v-if="isAdmin" class="card-actions  ">
-                            <a target="_blank" href="/download/2125" style="margin: 0; padding: 6px 12px;" type="button"
+                            <a  style="margin: 0; padding: 6px 12px;" type="button"
                                class="btn btn-default btn-simple" rel="tooltip" data-placement="bottom" title=""
                                data-original-title="Download">
                                 <i class="material-icons text-gray">file_download</i></a>
-                            <a href="/book/2125/edit" style="margin: 0; padding: 6px 12px;" type="button"
+                            <a v-on:click="toEdit(item.id)" style="margin: 0; padding: 6px 12px;" type="button"
                                class="btn btn-success btn-simple" rel="tooltip" data-placement="bottom" title=""
                                data-original-title="Edit">
                                 <i class="material-icons text-success">edit</i>
                                 <div class="ripple-container"></div>
                             </a>
-                            <a href="/book/2125/delete" style="margin: 0; padding: 6px 12px;" type="button"
+                            <a v-on:click="destroyBook(item.id)" style="margin: 0; padding: 6px 12px;" type="button"
                                class="btn btn-danger btn-simple" rel="tooltip" data-placement="bottom" title=""
                                data-original-title="Remove">
                                 <i class="material-icons text-danger">close</i>
@@ -282,43 +282,48 @@
                             <p class="card-description books-author" :title="item.author + item.year ">
                                 {{item.author}}.{{item.year}}</p>
                         </div>
-                        <md-button target="_blank" href="/reader/web/2125" class="md-round md-success">Открыть книгу
+                        <md-button v-on:click="openReader(item.id)" class="md-round md-success md-block">Открыть книгу
                         </md-button>
-                        <md-button v-if="!item.bookmarked" v-on:click="bookmarkAdd(item.id, index)" class="md-round md-info">В закладки</md-button>
-                        <md-button v-if="item.bookmarked" v-on:click="bookmarkRemove(item)" class="md-round">Убрать из
-                            закладок
+                        <md-button v-if="!item.bookmarked" v-on:click="bookmarkAdd(item.id, index)" class="md-round md-info md-block">
+                            <md-progress-spinner v-if="bookmark_add_loading[index]" :md-diameter="17" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
+                            <span v-if="!bookmark_add_loading[index]">В закладки</span>
+                        </md-button>
+
+                        <md-button v-if="item.bookmarked" v-on:click="bookmarkRemove(item.id, index)" class="md-round md-block">
+                            <md-progress-spinner v-if="bookmark_remove_loading[index]" :md-diameter="17" :md-stroke="2" md-mode="indeterminate"></md-progress-spinner>
+                            <span v-if="!bookmark_remove_loading[index]">Убрать из закладок</span>
                         </md-button>
                     </div>
                 </div>
             </div>
 
+            <div class="md-layout-item md-size-100">
+                <ul class="pagination">
 
+                    <li class="disabled"><span>&laquo;</span></li>
+
+
+                    <li class="active"><span>1</span></li>
+                    <li><a href="https://aknurpress.kz/books?page=2">2</a></li>
+                    <li><a href="https://aknurpress.kz/books?page=3">3</a></li>
+                    <li><a href="https://aknurpress.kz/books?page=4">4</a></li>
+                    <li><a href="https://aknurpress.kz/books?page=5">5</a></li>
+                    <li><a href="https://aknurpress.kz/books?page=6">6</a></li>
+                    <li><a href="https://aknurpress.kz/books?page=7">7</a></li>
+                    <li><a href="https://aknurpress.kz/books?page=8">8</a></li>
+
+                    <li class="disabled"><span>...</span></li>
+
+
+                    <li><a href="https://aknurpress.kz/books?page=46">46</a></li>
+                    <li><a href="https://aknurpress.kz/books?page=47">47</a></li>
+
+
+                    <li><a href="https://aknurpress.kz/books?page=2" rel="next">&raquo;</a></li>
+                </ul>
+            </div>
         </div>
-        <div>
-            <ul class="pagination">
 
-                <li class="disabled"><span>&laquo;</span></li>
-
-
-                <li class="active"><span>1</span></li>
-                <li><a href="https://aknurpress.kz/books?page=2">2</a></li>
-                <li><a href="https://aknurpress.kz/books?page=3">3</a></li>
-                <li><a href="https://aknurpress.kz/books?page=4">4</a></li>
-                <li><a href="https://aknurpress.kz/books?page=5">5</a></li>
-                <li><a href="https://aknurpress.kz/books?page=6">6</a></li>
-                <li><a href="https://aknurpress.kz/books?page=7">7</a></li>
-                <li><a href="https://aknurpress.kz/books?page=8">8</a></li>
-
-                <li class="disabled"><span>...</span></li>
-
-
-                <li><a href="https://aknurpress.kz/books?page=46">46</a></li>
-                <li><a href="https://aknurpress.kz/books?page=47">47</a></li>
-
-
-                <li><a href="https://aknurpress.kz/books?page=2" rel="next">&raquo;</a></li>
-            </ul>
-        </div>
     </div>
 </template>
 
@@ -326,17 +331,86 @@
     import env from '../../config/env.js';
 
     export default {
+        components: {
+            env
+        },
         data() {
             return {
                 show: false,
-                books: null,
-                bookmarks: null,
+                backendUrl: null,
+                books: [],
+                bookmarks: [],
+                bookmark_add_loading: [],
+                bookmark_remove_loading: [],
             }
         },
         computed: {
             isAdmin() {
                 return this.$store.getters['auth/isAdmin'];
             },
+        },
+        methods: {
+            openReader(id) {
+                this.$router.push('/reader/' + id);
+            },
+            setBookmarks() {
+                const bookmarks_array = this.bookmarks;
+
+                this.books.forEach(function (item) {
+                    item.bookmarked = bookmarks_array.find(bookmark => item.id === bookmark) ? 1 : 0;
+                });
+
+                this.$forceUpdate();
+            },
+            bookmarkAdd(id, index) {
+                this.bookmark_add_loading[index] = 1;
+                this.$forceUpdate();
+                this.$store.dispatch('bookmarks/addBookmark', {
+                    id:id,
+                }).then(response => {
+                    this.bookmark_add_loading[index] = 0;
+                    this.books[index].bookmarked = true;
+                    this.$forceUpdate();
+                }).catch(error => {
+                    this.bookmark_add_loading[index] = 0;
+                    this.errorNotify();
+                    this.$forceUpdate();
+                });
+            },
+            bookmarkRemove(id, index) {
+                this.bookmark_remove_loading[index] = 1;
+                this.$forceUpdate();
+                this.$store.dispatch('bookmarks/removeBookmark', {
+                    id:id,
+                }).then(response => {
+                    this.bookmark_remove_loading[index] = 0;
+                    this.books[index].bookmarked = false;
+                    this.$forceUpdate();
+                }).catch(error => {
+                    this.bookmark_remove_loading[index] = 0;
+                    this.$forceUpdate();
+                    this.errorNotify();
+                });
+            },
+            destroyBook(id) {
+                if(confirm('Вы точно хотите удалить Дисциплину ?'))
+                    this.$store.dispatch('book/destroyBook', {
+                        id:id,
+                    }).then(response => {
+                        this.$store.dispatch("book/getList", {
+                            id: this.$route.params.id,
+                        });
+                    }).catch(error => {
+                        this.errorNotify();
+                    });
+            },
+            toEdit(id){
+                this.$router.push('/admin/books/' + id +'/edit');
+            },
+
+        },
+        mounted() {
+            this.backendUrl = env.backendUrl;
         },
         beforeMount() {
             this.$store.dispatch('book/getPage', {
@@ -354,20 +428,15 @@
                     this.setBookmarks();
                 }
             });
-        },
-        methods: {
-            setBookmarks() {
-                const bookmarks_array = this.bookmarks;
-                this.books.forEach(function (item) {
-                    item.bookmarked = bookmarks_array.find(bookmark => item.id === bookmark) ? 1 : 0;
-                });
-            },
-            bookmarkAdd(book, index) {
-                this.books[index].bookmarked = 1;
-            }
         }
     };
 </script>
+
+<style>
+    .md-button-content .md-progress-spinner.md-theme-default .md-progress-spinner-circle {
+        stroke: white;
+    }
+</style>
 
 <style scoped>
     .poster {

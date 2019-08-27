@@ -19,7 +19,6 @@
 import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
-import MobileMenu from "@/pages/Layout/MobileMenu.vue";
 import SideBarAuth from "@/pages/Layout/SideBarAuth";
 import SideBar from "@/pages/Layout/SideBar";
 
@@ -28,7 +27,6 @@ export default {
     TopNavbar,
     DashboardContent,
     ContentFooter,
-    MobileMenu,
     SideBarAuth,
     SideBar,
   },

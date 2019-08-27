@@ -7,7 +7,7 @@
                         <md-card-header data-background-color="purple">
 
                             <h4 class="title">История вашей активности</h4>
-                            <p class="category">Ваша активность на сайте</p>
+                            <p class="category text-white">Ваша активность на сайте</p>
 
                         </md-card-header>
                         <md-card-content>
