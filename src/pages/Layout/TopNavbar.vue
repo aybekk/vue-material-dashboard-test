@@ -17,14 +17,20 @@
 
         <div class="md-collapse">
           <div class="md-autocomplete" v-if="loggedIn">
+            <form @submit.prevent="search">
             <md-autocomplete
               class="search"
-              v-model="selectedEmployee"
-              :md-options="employees"
+              v-model="keyword"
+              :md-options="searchHistory"
             >
               <label>Поиск...</label>
             </md-autocomplete>
+            </form>
           </div>
+          <md-button v-on:click="search" class="md-white md-round md-just-icon pull-right">
+            <i class="material-icons">search</i>
+            <div class="ripple-container"></div>
+          </md-button>
           <md-list>
               <md-list-item href="#/user" v-if="loggedIn">
               <i class="material-icons">person</i>
@@ -51,22 +57,16 @@ export default {
   },
   data() {
     return {
-      selectedEmployee: null,
-      employees: [
-        "Jim Halpert",
-        "Dwight Schrute",
-        "Michael Scott",
-        "Pam Beesly",
-        "Angela Martin",
-        "Kelly Kapoor",
-        "Ryan Howard",
-        "Kevin Malone"
-      ]
+      keyword: null,
+      searchHistory: []
     };
   },
   methods: {
     toggleSidebar() {
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+    },
+    search() {
+
     }
   }
 };

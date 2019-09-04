@@ -57,7 +57,7 @@ const routes = [
         }
       },
       {
-        path: "bookmarks",
+        path: "bookmarks/:page",
         name: "Bookmarks",
         component: BookmarksIndex,
         meta:{
@@ -299,6 +299,9 @@ const routes = [
       },
     ]
   },
+
+
+
   {
     path: "/reader/:id",
     component: Reader,

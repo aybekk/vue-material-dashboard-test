@@ -10,14 +10,8 @@
                             <p class="category text-white">Ваша активность на сайте</p>
 
                         </md-card-header>
-                        <md-card-content>
-                            <div class="md-layout">
-                                <div style="margin: 30px 0;" class="alert alert-info alert-with-icon" data-notify="container">
-                                    <i data-notify="icon" class="material-icons">error_outline</i>
-                                    <span data-notify="message">Здесь будет история вашей активности</span>
-                                </div>
-                            </div>
-                        </md-card-content>
+
+                        <StoryTable table-header-color="green"></StoryTable>
                     </md-card>
                 </div>
 
@@ -31,8 +25,12 @@
 
 
 <script>
+    import StoryTable from "../Story/Partials/StoryTable";
     export default {
-        name: "Index.vue"
+        components: {
+            StoryTable
+        },
+
     }
 </script>
 

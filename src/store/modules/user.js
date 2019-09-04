@@ -7,6 +7,7 @@ const state = {
     admins: null,
     users: null,
     user: null,
+    stats:null,
 };
 
 const mutations = {
@@ -20,6 +21,9 @@ const mutations = {
     storeUser(state, data) {
         state.user = data;
     },
+    storeStats(state,data){
+        state.stats=data;
+    },
 };
 
 const getters = {
@@ -32,7 +36,27 @@ const getters = {
 
     User() {
         return state.user;
-    }
+    },
+    LastRead(state) {
+        if(state.stats) {
+            return state.stats.last_read;
+        }
+    },
+    MostSeen(state) {
+        if(state.stats) {
+            return state.stats.most_seen;
+        }
+    },
+    New(state) {
+        if (state.stats) {
+            return state.stats.new;
+        }
+    },
+    Popular(state) {
+        if (state.stats) {
+            return state.stats.popular;
+        }
+    },
 };
 
 const actions = {
@@ -136,6 +160,22 @@ const actions = {
             });
         });
     },
+    getStats(context) {
+        return new Promise((resolve, reject) => {
+            axios.get('profile/stats', {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                context.commit('storeStats', response.data);
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+
 
 
 };

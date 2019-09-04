@@ -18,6 +18,8 @@
 <script>
 import PDFUploader from './components/PDFUploader.vue'
 import PDFViewer from './components/PDFViewer.vue'
+import env from '../config/env.js';
+
 
 export default {
   name: 'reader',
@@ -25,14 +27,19 @@ export default {
   components: {
     PDFUploader,
     PDFViewer,
+    env
   },
 
   data() {
     return {
-      url: "https://cdn.filestackcontent.com/wcrjf9qPTCKXV3hMXDwK",
+      url: '',
       documentError: undefined,
       enableUploader: process.env.VUE_APP_UPLOAD_ENABLED === 'true',
     };
+  },
+
+  mounted() {
+    this.url = env.backendApiUrl + 'books/' + this.$route.params.id + '/pdf';
   },
 
   methods: {

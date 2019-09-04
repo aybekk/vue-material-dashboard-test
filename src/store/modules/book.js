@@ -8,6 +8,7 @@ const state = {
     book:null,
     book_subjects:null,
     book_pages: null,
+    latest:null,
 };
 
 const mutations = {
@@ -22,6 +23,9 @@ const mutations = {
     },
     storePage(state, data) {
         state.book_pages = data;
+    },
+    storeLatest(state, data) {
+        state.latest = data;
     },
 
 };
@@ -50,7 +54,23 @@ const getters = {
         if(state.book_pages) {
             return state.book_pages.total;
         }
-    }
+    },
+    PageLatest(state) {
+        if(state.latest) {
+            return state.latest.data;
+        }
+    },
+    LastPageLatest(state) {
+        if(state.latest) {
+            return state.latest.last_page;
+        }
+    },
+    TotalLatest(state) {
+        if(state.book_pages) {
+            return state.latest.total;
+        }
+    },
+
 
 };
 
@@ -65,6 +85,40 @@ const actions = {
                 }
             }).then(response => {
                 context.commit('storePage', response.data);
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+    getLatest(context, credentials) {
+        const page = credentials.page;
+        return new Promise((resolve, reject) => {
+            axios.get('books/latest?page=' + page, {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                context.commit('storeLatest', response.data);
+                resolve(response);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+
+    search(context,credentials){
+        var language = credentials.language
+
+        return new Promise((resolve, reject) => {
+            axios.get('books/search', {
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + context.rootState.auth.token,
+                }
+            }).then(response => {
+                context.commit('storeBooks', response.data);
                 resolve(response);
             }).catch(error => {
                 reject(error);

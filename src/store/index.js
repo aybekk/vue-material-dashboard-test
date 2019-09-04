@@ -6,7 +6,6 @@ import subject from './modules/subject';
 import book from './modules/book';
 import user from './modules/user';
 import bookmarks from './modules/bookmarks';
-import story from './modules/story';
 import articles from './modules/articles';
 
 Vue.use(Vuex);
@@ -18,7 +17,6 @@ export default  new Vuex.Store({
         subject,
         book,
         user,
-        story,
         articles,
         bookmarks,
     },

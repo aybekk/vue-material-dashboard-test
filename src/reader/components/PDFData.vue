@@ -8,13 +8,19 @@ const log = debug('app:components/PDFData');
 
 import range from 'lodash/range';
 
-function getDocument(url) {
+function getDocument(url, authorization) {
   // Using import statement in this way allows Webpack
   // to treat pdf.js as an async dependency so we can
   // avoid adding it to one of the main bundles
   return import(
     /* webpackChunkName: 'pdfjs-dist' */
-    'pdfjs-dist/webpack').then(pdfjs => pdfjs.getDocument(url));
+    'pdfjs-dist/webpack').then(pdfjs => pdfjs.getDocument({
+      url: url,
+      httpHeaders: {
+          'Accept': 'application/json',
+          'Authorization': authorization,
+      },
+  }));
 }
 
 // pdf: instance of PDFData
@@ -51,7 +57,7 @@ export default {
   watch: {
     url: {
       handler(url) {
-        getDocument(url)
+        getDocument(url, 'Bearer ' + this.$store.state.auth.token)
           .then(pdf => (this.pdf = pdf))
           .catch(response => {
             this.$emit('document-errored', {text: 'Failed to retrieve PDF', response});

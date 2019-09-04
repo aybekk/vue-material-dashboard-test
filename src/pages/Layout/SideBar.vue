@@ -14,7 +14,7 @@
       <md-icon>date_range</md-icon>
       <p> Просмотренные мною</p>
     </sidebar-link>
-    <sidebar-link to="/bookmarks">
+    <sidebar-link to="/bookmarks/1">
       <md-icon>book</md-icon>
       <p>Закладки</p>
     </sidebar-link>
